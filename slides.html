@@ -169,18 +169,18 @@ Characteristics
 
 - distributed
 
-    + not dependent on network access or a central server
+    + not dependent on network access or central servers
     + everyone has a copy of the whole repository
 
 - non-linear development
 
-    + multiple people project
+    + collaborative project
     + Linux kernel: averaging ~70 commits per day
 
 - efficiency
 
     + hash (SHA-1)
-    + mush more like a *file system*
+    + mush like a *file system*
 
 - very lightweight branch
 
@@ -267,7 +267,7 @@ git clone
 git config
 ==========
 
-- who you are & how to contact tou
+- who you are & how to contact you
 
 
     $ git config --global user.name "xatierlike Lee"
@@ -427,7 +427,7 @@ git log
 git log
 =======
 
-- take a look over your commit log
+- take a look at your commit log
 
 
     $ git log
@@ -457,7 +457,7 @@ git log
 
     $ git diff
 
-- you can check the changed you staged
+- you can check the changes you staged
 
 
     $ git diff --staged
@@ -501,13 +501,13 @@ Summary
 
 - the `commit` only keep what your change in the staging area
 
-    + that is, the changes in the working directory only be recorded after you `add` them
+    + that is, the changes in the working directory will be recorded only after you `add`ed them
 
 - use `diff` to double check the staging are before your `add` & `commit`
 
     + don't show your stupid in the commit log :P
 
-- keep the modifications little by little between commits
+- keep the modifications small in each commit
 
 - write clear commit logs
 
@@ -548,9 +548,9 @@ git add/mv/rm
 git commit
 ==========
 
-- take a snapshot of the staging area
+- adding snapshots to your staging area
 
-    + `clean working directory`
+    + after you committed, the working directory will be *clean*
     + that is, we have not made any changes since our last commit 
 
 - record your name and email
@@ -571,7 +571,7 @@ git commit
 .gitignore
 ==========
 
-- under your repo directory
+- in your repo directory
 
     + `./.gitignore`
 
@@ -600,7 +600,7 @@ branch
 branch
 ======
 
-- one of the most powerful feature of git
+- one of the most powerful features of git
 
 - keep multiple snapshots of the repo
 
@@ -683,7 +683,7 @@ git merge
     blah blah...
     x files changed, y insertions(+), z deletions(-)
 
-- confliction!
+- conflict!
 
     + fix it, then `add` and `commit`
 
@@ -709,7 +709,7 @@ git blame
 
 - last modified each line of a file
 
-- very use ful when things broken or tracing the history
+- very useful for history tracing or when things break
 
 - <s>抓戰犯</s>
 
@@ -737,7 +737,7 @@ git blame
 git shortlog
 ============
 
-- who is the most activity commiter?
+- who is the most active commiter?
 
 
     $ git shortlog -nse
@@ -869,9 +869,9 @@ github.com
 
 - the most popular open source code repository site
 
-- contributed to open source projects
+- contribute to open source projects
 
-- get jobs form your commit logs!
+- get jobs from your commit logs!
 
 ---
 
