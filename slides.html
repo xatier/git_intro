@@ -526,36 +526,202 @@ Okay, this is the very basic usage of git :)
 
 ---
 
-# under working
+git add/mv/rm
+=============
 
-```
-    git add/mv/rm
-    git commit
+- `git add`
 
-    gitignore
+    + before your commit
+    + add file contents to your staging area 
+    + add new modifications to your staging area
+
+- `git rm`
+
+    + remove entries from the staging area
+    + be careful!!!!!
+    `git rm --cached` leave the file in the working directory
+
+- `git mv`
+
+    + git does not track file renames (content-based, remember?)
+    + `git mv` = `git rm --cached` + `git add`
+
+---
+
+git commit
+==========
+
+- take a snapshot of the staging area
+
+    + `clean working directory`
+    + that is, we have not made any changes since our last commit 
+
+- record your name and email
+
+    + `git config` and `~/.gitconfig`
+
+- commit messages
+
+    + it's very important to write a good commit message
+    + useful for code review and trace the history
+    + *how* and *why* in this commit
+
+.footnote[Note: [commit logs from last night](http://www.commitlogsfromlastnight.com/)]
+
+
+---
+
+.gitignore
+==========
+
+- under your repo directory
+
+    + `./.gitignore`
+
+- things you don't want to track
+
+    + log files, tmp files, build files
+    + auto gernerated files
+
+- `git ls-files` and `git status`
+
+- of course, you need to add this file to the repo
+
+- some good examples [here](http://git-scm.com/docs/gitignore)
+
+---
+
+branch
+======
+
+.center[
+    ![branch](http://i.imgur.com/izGgGju.png)
+]
+
+---
+
+branch
+======
+
+- one of the most powerful feature of git
+
+- keep multiple snapshots of the repo
+
+- hot-fix branches
+
+- feature branches
+
+- important commands
+
 
     git branch
     git checkout
     git merge
-    git cherry-pick
+
+---
+
+git branch
+==========
+
+- list (local) branches
+
+
+    $ git branch
+    * master
+
+- create a new branch
+    
+
+    $ git branch testing
+    
+    $ git branch
+    * master
+      testing
+
+- delete a branch
+
+    
+    $ git branch -d testing
+
+---
+
+git checkout
+============
+
+- switch between your branches
+
+
+    $ git branch
+    * master
+      testing
+    
+    
+    $ git checkout testing
+    Switched to branch 'testing'
+    
+    
+    $ git branch
+      master
+    * testing
+    
+    
+    $ git checkout master
+    Switched to branch 'master'
+
+- shortcut: create & checkout to it
+
+
+    $ git checkout -b blah
+    Switched to a new branch 'blah'
+
+---
+
+git merge
+=========
+
+- merge a branch into your current branch (HEAD)
+
+
+    $ git merge testing
+    blah blah...
+    x files changed, y insertions(+), z deletions(-)
+
+- confliction!
+
+    + fix it, then `add` and `commit`
+
+
+    $ cat README 
+    <<<<<<< HEAD
+    Many Hello World Examples
+    =======
+    Hello World Lang Examples
+    >>>>>>> fix_readme
+
+
+- three way merge
+
+    + find the common history
+
+
+---
+
+# under working
+
+```
+
 
     git blame
-    git stash
     git shortlog
 
     git fetch
     git pull
     git push
     git remote
-        github.com
+    github.com
 
-        git reset
-        git rebase
-        git revert
 
-        git clean
-        git gc
-        git help
+    git help
 
 ```
 ---
