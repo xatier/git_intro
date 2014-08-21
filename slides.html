@@ -17,12 +17,12 @@
         font-weight: 400;
         margin-bottom: 0;
     }
-    h1 { font-size: 4em; }
+    h1 { font-size: 3em; }
     h2 { font-size: 2em; }
     h3 { font-size: 1.6em; }
     .footnote {
         position: absolute;
-        bottom: 3em;
+        bottom: 1em;
     }
     li p { line-height: 1.25em; }
     .red { color: #fa0000; }
@@ -34,9 +34,8 @@
     code {
         -moz-border-radius: 5px;
         -web-border-radius: 5px;
-        background: #e7e8e2;
+        background: #F4F4F4;
         border-radius: 5px;
-        font-size: 16px;
     }
     .pull-left {
         float: left;
@@ -48,13 +47,6 @@
     }
     .pull-right ~ p {
         clear: both;
-    }
-    #slideshow .slide .content code {
-        font-size: 0.8em;
-    }
-    #slideshow .slide .content pre code {
-        font-size: 0.9em;
-        padding: 15px;
     }
     .inverse {
         background: #272822;
@@ -131,10 +123,30 @@ git and version control
 
 ## xatier ##
 
-##### NCTU CCCA .red[2013]  #####
+##### PyLadies September .red[2014]  #####
 
 
 .footnote[Where programmers learn from the [masters](https://github.com/)]
+
+---
+
+About me
+========
+
+- A student
+
+- A hacker
+
+- Love scripting languages, such as Perl, Python, bash ...
+
+- Active member in PyHUG (Python HsinChu User Group)
+
+- Appearing in lots of open source communities / conferences
+
+- [@xatierlikeLee](https://twitter.com/xatierlikelee) on twitter
+
+- <s>Looking for a girlfriend ...</s>
+
 
 ---
 
@@ -144,34 +156,54 @@ Introduction
 
 - source code management (SCM)
 
+    + why you need that?
+
 - history
 
-    + Linus Torvalds wanted a SCM for Linux kernel
+    + Linus Torvalds wanted his own SCM system for the Linux kernel
 
-    + `git` as "the stupid content tracker"
+    + `git` as *"the stupid content tracker"*
+
+        + British English slang roughly equivalent to *"unpleasant person"*
+
+
+.footnote[http://git-scm.com/book/en/Getting-Started-A-Short-History-of-Git]
 
 ---
 
-自幹 BitKeeper
-==============
+Write my own BitKeeper
+======================
+
+- BitKeeper is a proprietary SCM system, .red[*non-free!*]
+
+- The new SCM should support a distributed, BitKeeper-like workflow
+
+- Performance is No. 1
+
+
 
 ---
-自幹 BitKeeper
-==============
+Write my own BitKeeper
+======================
 
 .left[
-    ![git](http://i.imgur.com/aGw74YI.jpg)
+    <img src="http://i.imgur.com/aGw74YI.jpg" width="100%">
 ]
+
+.footnote[image src: http://akifrases.com/frase/132446]
 
 ---
 
 Characteristics
 ===============
 
+## `git` is ...
+
 - distributed
 
     + not dependent on network access or central servers
-    + everyone has a copy of the whole repository
+    + everyone can have a copy of the whole repository
+    + everything can be done offline before `push`
 
 - non-linear development
 
@@ -180,7 +212,7 @@ Characteristics
 
 - efficiency
 
-    + hash (SHA-1)
+    + check hash (SHA-1) and diff instead of comparing the whole contents
     + much like a *file system*
 
 - very lightweight branch
@@ -199,16 +231,27 @@ The three states
     ![three states](http://i.imgur.com/iJ0TrlI.png)
 ]
 
+
+.footnote[http://git-scm.com/book/en/Getting-Started-Git-Basics#The-Three-States]
+
 ---
 
 First Step
 ==========
 
-    git init
-    
-    git clone
-    
-    git config
+```
+git init
+
+git clone
+
+git config
+```
+
+.center[
+![Imgur](http://i.imgur.com/CUiscGS.jpg)
+]
+
+.footnote[image src: http://www.healthtipsplace.com/baby.html]
 
 ---
 
@@ -217,36 +260,50 @@ First Step
 
 - create your own project
 
-
-    $ mkdir demo
-    $ cd demo
-    $ git init
+```
+$ mkdir demo
+$ cd demo
+$ git init
+```
 
 - clone from other's repo
 
 
-    $ git clone git://git.kernel.org/pub/scm/git/git.git
+```
+$ git clone git://git.kernel.org/pub/scm/git/git.git
+# become a kernel hacker!
+```
 
 - configure your user info.
 
+```
+$ git config --global user.name "xatierlike Lee"
+$ git config --global user.email xatierlike@gmail.com
+```
 
-    $ git config --global user.name "xatierlike Lee"
-    $ git config --global user.email xatierlike@gmail.com
+.footnote[http://git-scm.com/book/en/Getting-Started-First-Time-Git-Setup]
 
 ---
 
 git init
 ========
 
-    $ mkdir demo
-    
-    $ cd demo/
-    
-    $ git init
-    Initialized empty Git repository in /Users/xatier/tmp/demo/.git/
+```
+$ mkdir demo
 
-.footnote[you can take a look inside `.git/` directory :) ]
+$ cd demo/
 
+$ git init
+Initialized empty Git repository in /Users/xatier/tmp/demo/.git/
+```
+
+
+- create needed files under the `.git` directory
+
+- you can take a look inside `.git/` :)
+
+
+.footnote[http://git-scm.com/book/en/Git-Basics-Getting-a-Git-Repository]
 ---
 
 git clone
@@ -254,14 +311,32 @@ git clone
 
 - clone the whole repository from an url
 
+```
+$ git clone git://git.kernel.org/pub/scm/git/git.git
+Cloning into 'git'...
+remote: Counting objects: 161444, done.
+remote: Compressing objects: 100% (40617/40617), done.
+remote: Total 161444 (delta 118857), reused 161444 (delta 118857)
+Receiving objects: 100% (161444/161444), 38.58 MiB | 8.20 MiB/s, done.
+Resolving deltas: 100% (118857/118857), done.
+```
 
-    $ git clone git://git.kernel.org/pub/scm/git/git.git
-    Cloning into 'git'...
-    remote: Counting objects: 161444, done.
-    remote: Compressing objects: 100% (40617/40617), done.
-    remote: Total 161444 (delta 118857), reused 161444 (delta 118857)
-    Receiving objects: 100% (161444/161444), 38.58 MiB | 8.20 MiB/s, done.
-    Resolving deltas: 100% (118857/118857), done.
+
+- different protocols
+
+```
+# local file
+$ git clone file:///opt/git/project.git
+
+# ssh
+$ git clone ssh://user@server/project.git
+$ git clone user@server:project.git
+
+# http/s
+$ git clone http://example.com/gitproject.git
+```
+
+.footnote[http://git-scm.com/book/en/Git-on-the-Server-The-Protocols]
 
 ---
 
@@ -269,18 +344,23 @@ git config
 ==========
 
 - who you are & how to contact you
+- you are responsible for code!
 
-
+```
     $ git config --global user.name "xatierlike Lee"
     $ git config --global user.email xatierlike@gmail.com
-    
+```
+
 - `--global` configurations will be stored here
 
+```
+$ cat ~/.gitconfig
+[user]
+        name = xatierlike Lee
+        email = xatierlike@gmail.com
+```
 
-    $ cat ~/.gitconfig
-    [user]
-            name = xatierlike Lee
-            email = xatierlike@gmail.com
+.footnote[http://git-scm.com/book/en/Customizing-Git-Git-Configuration]
 
 ---
 
