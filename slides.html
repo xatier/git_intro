@@ -344,11 +344,11 @@ git config
 ==========
 
 - who you are & how to contact you
-- you are responsible for code!
+- you are responsible for your code!
 
 ```
-    $ git config --global user.name "xatierlike Lee"
-    $ git config --global user.email xatierlike@gmail.com
+$ git config --global user.name "xatierlike Lee"
+$ git config --global user.email xatierlike@gmail.com
 ```
 
 - `--global` configurations will be stored here
@@ -367,20 +367,25 @@ $ cat ~/.gitconfig
 Three useful commands
 =====================
 
-- Show the working tree status
+- show the working tree status
 
+```
+$ git status
+```
 
-    git status
+- show changes between commits, commit and working tree, etc
 
-- Show changes between commits, commit and working tree, etc
+```
+$ git diff
+```
 
+- show commit logs
 
-    git diff
+```
+$ git log
+```
 
-- Show commit logs
-
-
-    git log
+### Use them often whenever you're not really sure what's going on!
 
 ---
 
@@ -389,50 +394,72 @@ git status
 
 - after `git init`
 
+```
+$ git status
+# On branch master
+#
+# Initial commit
+#
+nothing to commit (create/copy files and use "git add" to track)
+```
 
-    $ git status
-    # On branch master
-    #
-    # Initial commit
-    #
-    nothing to commit (create/copy files and use "git add" to track)
+- you have an empty *git repository* now, try to create some interesting stuffs!
+
+
+.footnote[http://git-scm.com/book/en/Git-Basics-Recording-Changes-to-the-Repository]
+
+
+---
+
+git status
+==========
 
 - create an empty file
 
+```
+$ touch foo
 
-    $ touch foo
-    
-    $ git status
-    # On branch master
-    #
-    # Initial commit
-    #
-    # Untracked files:
-    #   (use "git add <file>..." to include in what will be committed)
-    #
-    #   foo
-    nothing added to commit but untracked files present (use "git add" to track)
+$ git status
+# On branch master
+#
+# Initial commit
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#   foo
+nothing added to commit but untracked files present (use "git add" to track)
+```
+
+- okay, now you have a file in your *repo*, but `git` doesn't know anything about that file yet
+
+- tell `git` to *track* the content of the file
 
 ---
 
 git add
 =======
 
-- tell `git` to track the file
+- add some changes to the *staging area*
 
+- tell `git` to track the new added files
 
-    $ git add foo
-    
-    $ git status
-    # On branch master
-    #
-    # Initial commit
-    #
-    # Changes to be committed:
-    #   (use "git rm --cached <file>..." to unstage)
-    #
-    #   new file:   foo
-    #
+```
+$ git add foo
+
+$ git status
+# On branch master
+#
+# Initial commit
+#
+# Changes to be committed:
+#   (use "git rm --cached <file>..." to unstage)
+#
+#   new file:   foo
+#
+```
+
+- now you have a new *tracked* file in the *staging area*
 
 ---
 
@@ -441,18 +468,21 @@ git diff
 
 - now, write some data to `foo`
 
+```
+$ echo "foo" > foo
 
-    $ echo "foo" > foo
-    
-    $ git diff
+$ git diff
 
-    diff --git a/foo b/foo
-    index e69de29..257cc56 100644
-    --- a/foo
-    +++ b/foo
-    @@ -0,0 +1 @@
-    +foo
-    (END)
+diff --git a/foo b/foo
+index e69de29..257cc56 100644
+--- a/foo
++++ b/foo
+@@ -0,0 +1 @@
++foo
+(END)
+```
+
+.footnote[.red[Note: Is there any changes to the `.git` directory?]]
 
 ---
 
@@ -461,35 +491,37 @@ git commit
 
 - do the `commit`
 
-
-    $ git commit
+```
+$ git commit
+```
 
 - this command will open your `$EDITOR`
-    
 
-    create the file 'foo'
-    # Please enter the commit message for your changes. Lines starting
-    # with '#' will be ignored, and an empty message aborts the commit.
-    # On branch master
-    #
-    # Initial commit
-    #
-    # Changes to be committed:
-    #   (use "git rm --cached <file>..." to unstage)
-    #
-    #   new file:   foo
-    #
-    # Changes not staged for commit:
-    #   (use "git add <file>..." to update what will be committed)
-    #   (use "git checkout -- <file>..." to discard changes in working directory)
-    #
-    #   modified:   foo
-    #
+```
+create the file 'foo'
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+#
+# Initial commit
+#
+# Changes to be committed:
+#   (use "git rm --cached <file>..." to unstage)
+#
+#   new file:   foo
+#
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#   modified:   foo
+#
+```
 
 ---
 
-git log
-=======
+git commit
+==========
 
 - a brief summary of your commit
 
@@ -497,103 +529,150 @@ git log
     + insertions
     + deletions
 
-
-    $ git commit
-    [master (root-commit) 4c26688] create the file 'foo'
-     1 file changed, 0 insertions(+), 0 deletions(-)
-     create mode 100644 foo
+```
+$ git commit
+[master (root-commit) 4c26688] create the file 'foo'
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 foo
+```
 
 ---
 
 git log
 =======
 
-- take a look at your commit log
+- take a look at your *commit log*
 
-
-    $ git log
+```
+$ git log
+```
 
 - open a pager like the `less` command
 
+```
+commit 4c26688fc47fc120b262e7155356cb52796bc4bf
+Author: xatierlike <xatierlike@gmail.com>
+Date:   Sun Aug 18 17:35:46 2013 -0500
 
-     commit 4c26688fc47fc120b262e7155356cb52796bc4bf
-     Author: xatierlike <xatierlike@gmail.com>
-     Date:   Sun Aug 18 17:35:46 2013 -0500
+    create the file 'foo'
+(END)
+```
 
-         create the file 'foo'
-     (END)
+.footnote[http://git-scm.com/book/en/Git-Tools-Revision-Selection]
 
 ---
 
 git log
 =======
 
-- add our changes to the staging area
+- add our changes to the *staging area*
 
+```
+$ git add foo
+```
 
-    $ git add foo
+- `diff` shows the differences between your *working directory* and the *staging area*
 
-- `diff` shows the difference between your working directory and the staging area
-
-
-    $ git diff
+```
+$ git diff
+```
 
 - you can check the changes you staged
 
-
-    $ git diff --staged
+```
+$ git diff --staged
+```
 
 - now commit the staging area to the repo
 
+- this will take a *snapshot* to the repository
 
-    $ git commit
-    [master eabdcbe] modified foo
-     1 file changed, 1 insertion(+)
+
+```
+$ git commit
+[master eabdcbe] modified foo
+ 1 file changed, 1 insertion(+)
+```
 
 ---
 
 git log
 =======
 
-- look at the `log` again
+- look at the `git log` again
 
-
-    $ git log
+```
+$ git log
+```
 
 - will show you
 
+```
+commit eabdcbe9999db6d1a58539e84cf4f32f6d841c7b
+Author: xatierlike <xatierlike@gmail.com>
+Date:   Sun Aug 18 17:51:02 2013 -0500
 
-    commit eabdcbe9999db6d1a58539e84cf4f32f6d841c7b
-    Author: xatierlike <xatierlike@gmail.com>
-    Date:   Sun Aug 18 17:51:02 2013 -0500
-    
-        modified foo
-    
-    commit 4c26688fc47fc120b262e7155356cb52796bc4bf
-    Author: xatierlike <xatierlike@gmail.com>
-    Date:   Sun Aug 18 17:35:46 2013 -0500
-    
-        create the file 'foo'
+    modified foo
+
+commit 4c26688fc47fc120b262e7155356cb52796bc4bf
+Author: xatierlike <xatierlike@gmail.com>
+Date:   Sun Aug 18 17:35:46 2013 -0500
+
+    create the file 'foo'
+```
+
+---
+
+
+do `diff` often
+=============
+
+```
+$ git diff            (1)
+$ git diff --staged   (2)
+$ git diff HEAD       (3)
+```
+
+1. Changes in the working tree not yet staged for the next commit.
+
+2. Changes between the index and your last commit.
+
+3. Changes in the working tree since your last commit.
+
+
+### .red[make sure everything before you do a *commit* !!!]
+
+---
+
+file status lifecycle
+=====================
+
+.left[
+<img src="http://i.imgur.com/pDqvPsD.png" width="800">
+]
+
+.footnote[image src: http://git-scm.com/book/en/Git-Basics-Recording-Changes-to-the-Repository]
 
 ---
 
 Summary
 =======
 
-- `commit` only keeps what your change in the staging area
+- `commit` only keeps your changes in the *staging area*
 
     + that is, the changes in the working directory will be recorded only after you `add`ed them
 
-- use `diff` to double check the staging are before your `add` & `commit`
+- use `git diff` to double check the *staging area* before your `add` & `commit`
 
-    + don't show your stupidity in the commit message :P
+    + don't act like a dummy in your commit messages :P
 
-- keep modifications small in each commit
+- keep modifications .red[small] and .red[clear] between commits
 
-- write clear commit messages
+- rules to write good commit messages
 
     + a brief summary at the first line
     + describe the implementation details or your algorithm after that
+    + write commit messages in English
 
 ---
 
@@ -601,6 +680,8 @@ class: center, middle, inverse
 
 Okay, this is the very basic usage of git :)
 --------------------------------------------
+
+### Time to take a break!
 
 ---
 
