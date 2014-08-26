@@ -571,13 +571,13 @@ git log
 $ git add foo
 ```
 
-- `diff` shows the differences between your *working directory* and the *staging area*
+- `git diff` shows the differences between your *working directory* and the *staging area*
 
 ```
 $ git diff
 ```
 
-- you can check the changes you staged
+- you can check the changes you *staged*
 
 ```
 $ git diff --staged
@@ -630,17 +630,19 @@ do `diff` often
 ```
 $ git diff            (1)
 $ git diff --staged   (2)
-$ git diff HEAD       (3)
+$ git diff --check    (3)
+$ git diff HEAD       (4)
 ```
 
 1. Changes in the working tree not yet staged for the next commit.
 
 2. Changes between the index and your last commit.
 
-3. Changes in the working tree since your last commit.
+3. Warn if changes introduce whitespace errors.
 
+4. Changes in the working tree since your last commit.
 
-### .red[make sure everything before you do a *commit* !!!]
+### .red[make sure everything before you do a `git commit` !!!]
 
 ---
 
@@ -691,18 +693,19 @@ git add/rm/mv
 - `git add`
 
     + before your commit
-    + add file contents to your staging area 
-    + add new modifications to your staging area
+    + add files to your *staging area*
+    + add new modifications to your *staging area*
 
 - `git rm`
 
-    + remove entries from the staging area
-    + be careful!!!!!
+    + remove entries from the *staging area*
+    + .red[be careful!!!!!]
+      - By default, a `git rm file` will remove the file from the *staging area* entirely and also off your disk
     + `git rm --cached` leave the file in the working directory
 
 - `git mv`
 
-    + git does not track file by name (content-based, remember?)
+    + git does not track file by name (git is content-based, remember that?)
     + `git mv` = `git rm --cached` + `git add`
 
 ---
@@ -713,7 +716,7 @@ git commit
 - adding snapshots to your staging area
 
     + after you committed, the working directory will be *clean*
-    + that is, we have not made any changes since our last commit 
+    + that is, we have not made any changes since our last commit
 
 - record your name and email
 
@@ -739,8 +742,9 @@ git commit
 
 - things you don't want to track
 
-    + log files, tmp files, build files
-    + auto gernerated files
+    + log files, tmp files, build files (change frequently)
+    + auto generated files
+    + .red[database passwords]
 
 - `git ls-files` and `git status`
 
@@ -770,12 +774,14 @@ branch
 
 - feature branches
 
-- important commands
 
+```
+git branch
+git checkout
+git merge
+```
 
-    git branch
-    git checkout
-    git merge
+.footnote[http://git-scm.com/book/en/Git-Branching-What-a-Branch-Is]
 
 ---
 
@@ -784,23 +790,48 @@ git branch
 
 - list (local) branches
 
-
-    $ git branch
-    * master
+```
+$ git branch
+ * master
+```
 
 - create a new branch
-    
 
-    $ git branch testing
-    
-    $ git branch
-    * master
-      testing
+```
+$ git branch testing
+
+$ git branch
+ * master
+   testing
+```
 
 - delete a branch
 
-    
-    $ git branch -d testing
+```
+$ git branch -d testing
+```
+
+---
+
+git checkout
+============
+
+- タイムマシン
+
+- restore from any snapshots
+
+- switch between your branches
+
+![Imgur](http://i.imgur.com/pJLPYWz.jpg)
+
+.footnote[http://git-scm.com/book/en/Git-Branching-Basic-Branching-and-Merging]
+
+---
+
+
+<img src="http://i.imgur.com/VvBIlnV.jpg" width="800" />
+
+.footnote[image src: Steins; Gate]
 
 ---
 
@@ -809,58 +840,64 @@ git checkout
 
 - switch between your branches
 
+```
+$ git branch
+ * master
+   testing
 
-    $ git branch
-    * master
-      testing
-    
-    
-    $ git checkout testing
-    Switched to branch 'testing'
-    
-    
-    $ git branch
-      master
-    * testing
-    
-    
-    $ git checkout master
-    Switched to branch 'master'
+
+$ git checkout testing
+Switched to branch 'testing'
+
+
+$ git branch
+   master
+ * testing
+
+
+$ git checkout master
+Switched to branch 'master'
+```
 
 - shortcut: create & checkout to it
 
+```
+$ git checkout -b blah
+Switched to a new branch 'blah'
+```
 
-    $ git checkout -b blah
-    Switched to a new branch 'blah'
 
 ---
 
 git merge
 =========
 
-- merge a branch into your current branch (HEAD)
+- merge a branch into your current branch (`HEAD`)
 
-
-    $ git merge testing
-    blah blah...
-    x files changed, y insertions(+), z deletions(-)
+```
+$ git merge testing
+blah blah...
+x files changed, y insertions(+), z deletions(-)
+```
 
 - conflict!
-
+    + different commits modifying on the same parts of code
     + fix it, then `add` and `commit`
 
-
-    $ cat README 
-    <<<<<<< HEAD
-    Many Hello World Examples
-    =======
-    Hello World Lang Examples
-    >>>>>>> fix_readme
+```
+$ cat README 
+<<<<<<< HEAD
+Many Hello World Examples
+=======
+Hello World Lang Examples
+>>>>>>> fix_readme
+```
 
 
 - three way merge
 
     + find the common history
+
 
 
 ---
@@ -869,56 +906,56 @@ git merge
 git blame
 =========
 
-- last modified each line of a file
+- last modification of each line
 
-- very useful for history tracing or when things break
+- very useful for history tracing or when something broken
 
 - <s>抓戰犯</s>
 
+```
+$ git blame git.c
 
-    $ git blame git.c
-
-    85023577 (Junio C Hamano          2006-12-19 14:34:12 -0800   1) #include "builtin.h"
-    2b11e317 (Johannes Schindelin     2006-06-05 19:43:52 +0200   2) #include "cache.h"
-    fd5c363d (Thiago Farina           2010-08-31 23:29:08 -0300   3) #include "exec_cmd.h"
-    fd5c363d (Thiago Farina           2010-08-31 23:29:08 -0300   4) #include "help.h"
-    575ba9d6 (Matthias Lederhofer     2006-06-25 15:56:18 +0200   5) #include "quote.h"
-    d8e96fd8 (Jeff King               2009-01-28 02:38:14 -0500   6) #include "run-command.h"
-    6035d6aa (Nguyễn Thái Ngọc Duy    2013-05-26 08:16:15 +0700   7) #include "commit.h"
-    8e49d503 (Andreas Ericsson        2005-11-16 00:31:25 +0100   8)
-    822a7d50 (Ramsay Allan Jones      2006-07-30 22:42:25 +0100   9) const char git_usage_string[] =  
-    03a0fb0c (Kevin Bracey            2013-03-11 21:44:15 +0200  10)        "git [--version] [--help] 
-    03a0fb0c (Kevin Bracey            2013-03-11 21:44:15 +0200  11)        "           [--exec-path[=
-    a1bea2c1 (Josh Triplett           2011-07-05 10:54:44 -0700  12)        "           [-p|--paginate
-    a1bea2c1 (Josh Triplett           2011-07-05 10:54:44 -0700  13)        "           [--git-dir=<pa
-    62b4698e (Štěpán Němec            2010-10-08 19:31:15 +0200  14)        "           <command> [<ar
-
+85023577 (Junio C Hamano          2006-12-19 14:34:12 -0800   1) #include "builtin.h"
+2b11e317 (Johannes Schindelin     2006-06-05 19:43:52 +0200   2) #include "cache.h"
+fd5c363d (Thiago Farina           2010-08-31 23:29:08 -0300   3) #include "exec_cmd.h"
+fd5c363d (Thiago Farina           2010-08-31 23:29:08 -0300   4) #include "help.h"
+575ba9d6 (Matthias Lederhofer     2006-06-25 15:56:18 +0200   5) #include "quote.h"
+d8e96fd8 (Jeff King               2009-01-28 02:38:14 -0500   6) #include "run-command.h"
+6035d6aa (Nguyễn Thái Ngọc Duy    2013-05-26 08:16:15 +0700   7) #include "commit.h"
+8e49d503 (Andreas Ericsson        2005-11-16 00:31:25 +0100   8)
+822a7d50 (Ramsay Allan Jones      2006-07-30 22:42:25 +0100   9) const char git_usage_string[] =  
+03a0fb0c (Kevin Bracey            2013-03-11 21:44:15 +0200  10)        "git [--version] [--help] 
+03a0fb0c (Kevin Bracey            2013-03-11 21:44:15 +0200  11)        "           [--exec-path[=
+a1bea2c1 (Josh Triplett           2011-07-05 10:54:44 -0700  12)        "           [-p|--paginate
+a1bea2c1 (Josh Triplett           2011-07-05 10:54:44 -0700  13)        "           [--git-dir=<pa
+62b4698e (Štěpán Němec            2010-10-08 19:31:15 +0200  14)        "           <command> [<ar
+```
 
 ---
 
 git shortlog
 ============
 
-- who is the most active commiter?
+- who is the most active committer?
 
+```
+$ git shortlog -nse
 
-    $ git shortlog -nse
-    
-    12975  Junio C Hamano <gitster@pobox.com>
-     1398  Shawn O. Pearce <spearce@spearce.org>
-     1208  Jeff King <peff@peff.net>
-     1106  Linus Torvalds <torvalds@linux-foundation.org>
-      731  Johannes Schindelin <johannes.schindelin@gmx.de>
-      679  Jonathan Nieder <jrnieder@gmail.com>
-      529  Nguyễn Thái Ngọc Duy <pclouds@gmail.com>
-      511  Jakub Narębski <jnareb@gmail.com>
-      470  Eric Wong <normalperson@yhbt.net>
-      400  René Scharfe <l.s.r@web.de>
-      369  Johannes Sixt <j6t@kdbg.org>
-      344  Nicolas Pitre <nico@fluxnic.net>
-      339  Michael Haggerty <mhagger@alum.mit.edu>
-      336  Felipe Contreras <felipe.contreras@gmail.com>
-
+12975  Junio C Hamano <gitster@pobox.com>
+ 1398  Shawn O. Pearce <spearce@spearce.org>
+ 1208  Jeff King <peff@peff.net>
+ 1106  Linus Torvalds <torvalds@linux-foundation.org>
+  731  Johannes Schindelin <johannes.schindelin@gmx.de>
+  679  Jonathan Nieder <jrnieder@gmail.com>
+  529  Nguyễn Thái Ngọc Duy <pclouds@gmail.com>
+  511  Jakub Narębski <jnareb@gmail.com>
+  470  Eric Wong <normalperson@yhbt.net>
+  400  René Scharfe <l.s.r@web.de>
+  369  Johannes Sixt <j6t@kdbg.org>
+  344  Nicolas Pitre <nico@fluxnic.net>
+  339  Michael Haggerty <mhagger@alum.mit.edu>
+  336  Felipe Contreras <felipe.contreras@gmail.com>
+```
 
 ---
 
@@ -927,16 +964,41 @@ class: center, middle, inverse
 code with your friends!
 -----------------------
 
+
+.blue[You'll never code alone]
+
+---
+
+.center[
+<img src="http://i.imgur.com/LQ1I8Dl.jpg" width="80%" />
+]
+
+.footnote[image src: http://diylol.com/meme-generator/40-year-old-college-student/memes/want-to-watch-source-code-nobody-wants-to-go-with-you]
+
 ---
 
 **distributed** version control
 ===========================
 
-- update your project with `git fetch`
+- project development with 100+ of people?
 
-- share your changes with `git push`
+- everyone has his/her own copy(s) of the remote repository
 
-- manage your remote repositories with `git remote`
+- do most stuffs off-line (write some codes on airplane!)
+
+- you can do any experiments on your own local repository
+
+
+- `remote` / `fetch` / `push`
+
+    + manage your remote repositories with `git remote`
+
+    + update your project with `git fetch`
+
+    + share your changes with `git push`
+
+
+.footnote[http://git-scm.com/book/en/Distributed-Git-Distributed-Workflows]
 
 ---
 
@@ -945,32 +1007,34 @@ git remote
 
 - list remotes
 
+```
+$ git remote
+origin
 
-    $ git remote
-    origin
-    
-    $ git remote -v
-    origin  git@github.com:xatier/git_intro.git (fetch)
-    origin  git@github.com:xatier/git_intro.git (push)
+$ git remote -v
+origin  git@github.com:xatier/git_intro.git (fetch)
+origin  git@github.com:xatier/git_intro.git (push)
+```
 
 - add / remove / rename
 
-
-    $ git remote add linux-nfs git://linux-nfs.org/pub/linux/nfs-2.6.git
-    $ git remote rm linux-nfs
-    $ git remote rename linux-nfs linux-nfs-hack
+```
+$ git remote add linux-nfs git://linux-nfs.org/pub/linux/nfs-2.6.git
+$ git remote rm linux-nfs
+$ git remote rename linux-nfs linux-nfs-hack
+```
 
 
 - remote branches
 
-
-    $ git branch -a
-      gh-pages
-    * master
-      remotes/origin/HEAD -> origin/master
-      remotes/origin/gh-pages
-      remotes/origin/master
-
+```
+$ git branch -a
+   gh-pages
+ * master
+   remotes/origin/HEAD -> origin/master
+   remotes/origin/gh-pages
+   remotes/origin/master
+```
 
 ---
 
@@ -979,20 +1043,21 @@ git remote
 
 - secrets here
 
+```
+$ cat .git/config
 
-    $ cat .git/config
-    
-    (omitted...)
-    
-    [remote "origin"]
-        url = git@github.com:xatier/git_intro.git
-        fetch = +refs/heads/*:refs/remotes/origin/*
-    [branch "master"]
-        remote = origin
-        merge = refs/heads/master
-    [branch "gh-pages"]
-        remote = origin
-        merge = refs/heads/gh-pages
+(omitted...)
+
+[remote "origin"]
+    url = git@github.com:xatier/git_intro.git
+    fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+    remote = origin
+    merge = refs/heads/master
+[branch "gh-pages"]
+    remote = origin
+    merge = refs/heads/gh-pages
+```
 
 ---
 
@@ -1013,6 +1078,9 @@ fetch, pull and push
 
     + push your (new) branches to a remote repository
 
+
+.footnote[http://git-scm.com/book/en/Git-Basics-Working-with-Remotes]
+
 ---
 
 github.com
@@ -1029,18 +1097,24 @@ github.com
 
 - social coding
 
-- the most popular open source code repository site
+- the most popular open source code repository hosting service
 
 - contribute to open source projects
 
 - get jobs from your commit logs!
+
+<img src="http://i.imgur.com/n0RKb56.jpg" width="60%" />
+
+.footnote[image src: https://svpply.com/item/425245/GitHub__I_octocat_Code]
 
 ---
 
 git help
 ========
 
-    $ git help tutorial
+```
+$ git help tutorial
+```
 
 .center[
     ![RTFM](http://i.imgur.com/3tJkh7P.jpg)
