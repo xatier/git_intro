@@ -536,6 +536,12 @@ $ git commit
  create mode 100644 foo
 ```
 
+- dark magic
+
+```
+git commit --amend
+```
+
 ---
 
 git log
@@ -696,12 +702,11 @@ git add/rm/mv
     + add files to your *staging area*
     + add new modifications to your *staging area*
 
-- `git rm`
+- `git rm` .red[(be careful!!!!)]
 
     + remove entries from the *staging area*
-    + .red[be careful!!!!!]
       - By default, a `git rm file` will remove the file from the *staging area* entirely and also off your disk
-    + `git rm --cached` leave the file in the working directory
+    + `git rm --cached` leave the file in the working directory (i.e. untrack the file)
 
 - `git mv`
 
@@ -744,7 +749,7 @@ git commit
 
     + log files, tmp files, build files (change frequently)
     + auto generated files
-    + .red[database passwords]
+    + database passwords
 
 - `git ls-files` and `git status`
 
@@ -770,9 +775,11 @@ branch
 
 - keep multiple snapshots of the repo
 
-- hot-fix branches
+- topic branch
 
-- feature branches
+    + hot-fix
+    + bugfix
+    + feature
 
 
 ```
@@ -923,8 +930,8 @@ fd5c363d (Thiago Farina           2010-08-31 23:29:08 -0300   4) #include "help.
 d8e96fd8 (Jeff King               2009-01-28 02:38:14 -0500   6) #include "run-command.h"
 6035d6aa (Nguyễn Thái Ngọc Duy    2013-05-26 08:16:15 +0700   7) #include "commit.h"
 8e49d503 (Andreas Ericsson        2005-11-16 00:31:25 +0100   8)
-822a7d50 (Ramsay Allan Jones      2006-07-30 22:42:25 +0100   9) const char git_usage_string[] =  
-03a0fb0c (Kevin Bracey            2013-03-11 21:44:15 +0200  10)        "git [--version] [--help] 
+822a7d50 (Ramsay Allan Jones      2006-07-30 22:42:25 +0100   9) const char git_usage_string[] =
+03a0fb0c (Kevin Bracey            2013-03-11 21:44:15 +0200  10)        "git [--version] [--help]
 03a0fb0c (Kevin Bracey            2013-03-11 21:44:15 +0200  11)        "           [--exec-path[=
 a1bea2c1 (Josh Triplett           2011-07-05 10:54:44 -0700  12)        "           [-p|--paginate
 a1bea2c1 (Josh Triplett           2011-07-05 10:54:44 -0700  13)        "           [--git-dir=<pa
@@ -1059,6 +1066,13 @@ $ cat .git/config
     merge = refs/heads/gh-pages
 ```
 
+- remote show
+
+```
+git remote show
+git remote show origin
+```
+
 ---
 
 fetch, pull and push
@@ -1080,6 +1094,34 @@ fetch, pull and push
 
 
 .footnote[http://git-scm.com/book/en/Git-Basics-Working-with-Remotes]
+
+---
+
+The *Merge* workflow
+====================
+
+- `git push` copies your branches to a remote repository
+
+- `git fetch` copies remote branches to your repository
+
+- `git pull` does fetch and merge in one go
+
+
+.red[Do not]
+------------
+
+- use `git push` unless you actually want to share the local branch
+- use `git pull` unless you actually want to merge the remote branch
+
+```
+git fetch <remote>
+git fetch <remote> <branch>
+git pull <url> <branch>
+git push <remote> <branch>
+git push <remote> <local_branch_name>:<remote_branch_name>
+```
+
+.footnote[man gitworkflows]
 
 ---
 
@@ -1137,13 +1179,17 @@ Reference
 
 - http://gitscm.com/book
 
+- http://gitref.org/
+
+- https://www.kernel.org/pub/software/scm/git/docs/
+
+- https://www.atlassian.com/git/tutorials/
+
 - http://www-cs-students.stanford.edu/~blynn/gitmagic/
 
 - http://jonas.nitro.dk/git/quick-reference.html
 
-- https://www.kernel.org/pub/software/scm/git/docs/
 
-- http://gitref.org/
 
 
 
