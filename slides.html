@@ -310,6 +310,7 @@ git clone
 =========
 
 - clone the whole repository from an url
+- get a *local* copy of a Git repository
 
 ```
 $ git clone git://git.kernel.org/pub/scm/git/git.git
@@ -392,6 +393,10 @@ $ git log
 git status
 ==========
 
+- show the working tree status
+
+- use this often!!!!
+
 - after `git init`
 
 ```
@@ -465,6 +470,8 @@ $ git status
 
 git diff
 ========
+
+- Show changes between commits, commit and working tree, etc
 
 - now, write some data to `foo`
 
@@ -568,7 +575,7 @@ Date:   Sun Aug 18 17:35:46 2013 -0500
 
 ---
 
-git log
+git add
 =======
 
 - add our changes to the *staging area*
@@ -718,7 +725,7 @@ git add/rm/mv
 git commit
 ==========
 
-- adding snapshots to your staging area
+- make snapshots of your staging area
 
     + after you committed, the working directory will be *clean*
     + that is, we have not made any changes since our last commit
@@ -966,6 +973,92 @@ $ git shortlog -nse
 
 ---
 
+git show
+========
+
+Show various types of objects
+
+```
+git show <commit>
+git show <tag>
+```
+---
+
+git reflog
+==========
+
+Show the "reference" of each commits
+
+```
+git reflog
+```
+
+---
+
+git whatchanged
+===============
+
+Show logs with difference each commit introduces
+
+```
+git whatchanged
+```
+
+
+---
+
+git stash
+=========
+
+Stash the changes in a dirty working directory away
+
+```
+git stash
+git stash save "message"
+git stash pop
+git stash list
+git stash show -p <reversion>
+git stash apply
+git stash drop
+```
+
+
+---
+
+git tag
+=======
+
+Give a name to a commit
+
+```
+git tag -a v1.0
+```
+
+---
+
+git reset
+=========
+
+- Reset current HEAD to the specified state
+
+- .red[DANGEROUS !!!]
+
+- two modes
+
+  + `--mixed` Resets the index but not the working tree (default)
+  + `--hard` Resets the index and working tree. Any changes to tracked files in the working tree since <commit> are discarded.
+
+```
+git reset <reversion>
+git reset --hard HEAD~3
+git reset <file>
+git reset --hard <file>
+```
+
+- must run `git diff HEAD` before you use `git reset`
+
+---
+
 class: center, middle, inverse
 
 code with your friends!
@@ -1148,6 +1241,20 @@ github.com
 <img src="http://i.imgur.com/n0RKb56.jpg" width="60%" />
 
 .footnote[image src: https://svpply.com/item/425245/GitHub__I_octocat_Code]
+
+---
+
+README.md
+=========
+
+- a introduction of this repository
+- (github flavored) Markdown
+
+- http://markdown.tw/
+
+- https://github-markdown-preview.heroku.com
+
+.footnote[https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet]
 
 ---
 
